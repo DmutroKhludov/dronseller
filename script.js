@@ -498,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Load saved values
         tgTokenInput.value = localStorage.getItem('drons_tg_token') || '';
         tgChatIdInput.value = localStorage.getItem('drons_tg_chatid') || '';
-        w3KeyInput.value = localStorage.getItem('drons_w3_key') || '';
+        w3KeyInput.value = localStorage.getItem('drons_w3_key') || 'fdc1e6ce-9cd5-4a54-8ad4-d789b24710a8';
         
         settingsModal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function sendFormNotification(subject, textContent, rawData) {
         const tgToken = localStorage.getItem('drons_tg_token');
         const tgChatId = localStorage.getItem('drons_tg_chatid');
-        const w3Key = localStorage.getItem('drons_w3_key');
+        const w3Key = localStorage.getItem('drons_w3_key') || 'fdc1e6ce-9cd5-4a54-8ad4-d789b24710a8';
         
         let sentAny = false;
         
