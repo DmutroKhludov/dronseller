@@ -46,12 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Configurator Logic ---
     function updateConfigurator() {
-        let totalPrice = 0;
+        let totalPriceUah = 0;
+        let totalPriceUsd = 0;
         let totalWeight = 0;
         let baseSpeed = 0;
         let speedModifier = 0;
         let videoType = "Analog FPV";
-        let frameName = "Custom 5\"";
+        let frameName = "Індивідуальна 5\"";
 
         // Get checked inputs
         const selectedFrame = document.querySelector('input[name="frame"]:checked');
@@ -61,7 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (selectedFrame) {
             const card = selectedFrame.closest('.config-card');
-            totalPrice += parseInt(card.dataset.price);
+            totalPriceUah += parseInt(card.dataset.priceUah);
+            totalPriceUsd += parseInt(card.dataset.priceUsd);
             totalWeight += parseInt(card.dataset.weight);
             baseSpeed = parseInt(card.dataset.speed);
             
@@ -72,14 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (selectedBattery) {
             const card = selectedBattery.closest('.config-card');
-            totalPrice += parseInt(card.dataset.price);
+            totalPriceUah += parseInt(card.dataset.priceUah);
+            totalPriceUsd += parseInt(card.dataset.priceUsd);
             totalWeight += parseInt(card.dataset.weight);
             speedModifier += parseInt(card.dataset.speed);
         }
 
         if (selectedVideo) {
             const card = selectedVideo.closest('.config-card');
-            totalPrice += parseInt(card.dataset.price);
+            totalPriceUah += parseInt(card.dataset.priceUah);
+            totalPriceUsd += parseInt(card.dataset.priceUsd);
             totalWeight += parseInt(card.dataset.weight);
             
             if (selectedVideo.value === 'analog') videoType = 'Analog FPV';
@@ -89,7 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (selectedRx) {
             const card = selectedRx.closest('.config-card');
-            totalPrice += parseInt(card.dataset.price);
+            totalPriceUah += parseInt(card.dataset.priceUah);
+            totalPriceUsd += parseInt(card.dataset.priceUsd);
             totalWeight += parseInt(card.dataset.weight);
         }
 
@@ -97,13 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const calculatedSpeed = baseSpeed + speedModifier;
         
         specWeightVal.textContent = `${totalWeight} г`;
-        specSpeedVal.textContent = `~ ${calculatedSpeed} км/ч`;
+        specSpeedVal.textContent = `~ ${calculatedSpeed} км/год`;
         specVideoVal.textContent = videoType;
-        configTotalPrice.textContent = `${totalPrice.toLocaleString('ru-RU')} ₽`;
+        configTotalPrice.textContent = `${totalPriceUah.toLocaleString('uk-UA')} грн / $${totalPriceUsd}`;
 
         // Store selected options info on the Add to Cart button for easy reading
-        configAddCartBtn.dataset.price = totalPrice;
-        configAddCartBtn.dataset.name = `Custom FPV Build (${frameName})`;
+        configAddCartBtn.dataset.priceUah = totalPriceUah;
+        configAddCartBtn.dataset.priceUsd = totalPriceUsd;
+        configAddCartBtn.dataset.name = `Кастом FPV (${frameName})`;
     }
 
     // Config option clicks
@@ -154,11 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
             cartEmpty.style.display = 'none';
             cartFooter.style.display = 'block';
             
-            let total = 0;
+            let totalUah = 0;
+            let totalUsd = 0;
             let count = 0;
             
             cart.forEach((item, index) => {
-                total += item.price;
+                totalUah += item.priceUah;
+                totalUsd += item.priceUsd;
                 count++;
                 
                 const itemElem = document.createElement('div');
@@ -166,14 +174,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 itemElem.innerHTML = `
                     <div class="cart-item-details">
                         <span class="cart-item-name">${item.name}</span>
-                        <span class="cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span>
+                        <span class="cart-item-price">${item.priceUah.toLocaleString('uk-UA')} грн / $${item.priceUsd}</span>
                     </div>
-                    <button class="cart-item-remove" data-index="${index}">Удалить</button>
+                    <button class="cart-item-remove" data-index="${index}">Видалити</button>
                 `;
                 cartItemsContainer.appendChild(itemElem);
             });
             
-            cartTotalPriceVal.textContent = `${total.toLocaleString('ru-RU')} ₽`;
+            cartTotalPriceVal.textContent = `${totalUah.toLocaleString('uk-UA')} грн / $${totalUsd}`;
             cartCountBadge.textContent = count;
 
             // Wire remove buttons
@@ -187,8 +195,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function addToCart(name, price) {
-        cart.push({ name, price: parseInt(price) });
+    function addToCart(name, priceUah, priceUsd) {
+        cart.push({ 
+            name, 
+            priceUah: parseInt(priceUah), 
+            priceUsd: parseInt(priceUsd) 
+        });
         updateCartUI();
         openCart();
     }
@@ -209,16 +221,18 @@ document.addEventListener('DOMContentLoaded', () => {
     addCatalogBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             const name = e.target.dataset.name;
-            const price = e.target.dataset.price;
-            addToCart(name, price);
+            const priceUah = e.target.dataset.priceUah;
+            const priceUsd = e.target.dataset.priceUsd;
+            addToCart(name, priceUah, priceUsd);
         });
     });
 
     // Add custom builder configuration to cart
     configAddCartBtn.addEventListener('click', (e) => {
         const name = e.target.dataset.name;
-        const price = e.target.dataset.price;
-        addToCart(name, price);
+        const priceUah = e.target.dataset.priceUah;
+        const priceUsd = e.target.dataset.priceUsd;
+        addToCart(name, priceUah, priceUsd);
     });
 
     // Add empty cart CTA trigger to close drawer and scroll to catalog
@@ -239,7 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("ORDER PLACED:", {
             customer: { name, phone },
             items: cart,
-            totalPrice: cart.reduce((acc, item) => acc + item.price, 0)
+            totalPriceUah: cart.reduce((acc, item) => acc + item.priceUah, 0),
+            totalPriceUsd: cart.reduce((acc, item) => acc + item.priceUsd, 0)
         });
         
         // Success workflow
