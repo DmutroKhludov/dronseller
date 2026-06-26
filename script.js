@@ -292,4 +292,99 @@ document.addEventListener('DOMContentLoaded', () => {
             successModal.classList.remove('active');
         }
     });
+
+    // --- Drone Detail Modal Logic ---
+    const detailModal = document.getElementById('detail-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalBadge = document.getElementById('modal-badge');
+    const modalTitle = document.getElementById('modal-title');
+    const modalPrice = document.getElementById('modal-price');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalSpecs = document.getElementById('modal-specs');
+    const modalBuyBtn = document.getElementById('modal-buy-btn');
+    const detailModalClose = document.getElementById('detail-modal-close');
+    const detailModalOverlay = document.getElementById('detail-modal-overlay');
+
+    let activeDroneData = null;
+
+    const droneCards = document.querySelectorAll('.drone-card');
+    droneCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            // Prevent opening modal if clicking the action button inside the card
+            if (e.target.closest('.add-to-cart-btn')) {
+                return;
+            }
+            
+            const img = card.querySelector('.drone-card-img').src;
+            const badge = card.querySelector('.drone-badge');
+            const title = card.querySelector('.drone-title').textContent;
+            const price = card.querySelector('.drone-price').textContent;
+            const desc = card.dataset.details || card.querySelector('.drone-desc').textContent;
+            const specsHtml = card.querySelector('.drone-specs-list').innerHTML;
+            
+            // Get buy button data
+            const buyBtn = card.querySelector('.add-to-cart-btn');
+            activeDroneData = {
+                name: buyBtn.dataset.name,
+                priceUah: buyBtn.dataset.priceUah,
+                priceUsd: buyBtn.dataset.priceUsd
+            };
+
+            // Set content
+            modalImg.src = img;
+            modalImg.alt = title;
+            modalTitle.textContent = title;
+            modalPrice.textContent = price;
+            modalDesc.textContent = desc;
+            
+            // Map specs
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = specsHtml;
+            const specs = tempDiv.querySelectorAll('.drone-spec');
+            specs.forEach(s => {
+                s.className = 'detail-modal-spec';
+            });
+            modalSpecs.innerHTML = tempDiv.innerHTML;
+
+            // Set badge
+            if (badge) {
+                modalBadge.textContent = badge.textContent;
+                modalBadge.style.display = 'block';
+                modalBadge.className = 'detail-modal-badge';
+                if (badge.classList.contains('badge-cyan')) modalBadge.classList.add('badge-cyan');
+                if (badge.classList.contains('badge-orange')) modalBadge.classList.add('badge-orange');
+                if (badge.classList.contains('badge-purple')) modalBadge.classList.add('badge-purple');
+            } else {
+                modalBadge.style.display = 'none';
+            }
+
+            // Open Modal
+            detailModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock background scroll
+        });
+    });
+
+    function closeDetailModal() {
+        detailModal.classList.remove('active');
+        if (!cartDrawer.classList.contains('active')) {
+            document.body.style.overflow = '';
+        }
+    }
+
+    if (detailModalClose) {
+        detailModalClose.addEventListener('click', closeDetailModal);
+    }
+    if (detailModalOverlay) {
+        detailModalOverlay.addEventListener('click', closeDetailModal);
+    }
+
+    // Modal Buy Button Click
+    if (modalBuyBtn) {
+        modalBuyBtn.addEventListener('click', () => {
+            if (activeDroneData) {
+                addToCart(activeDroneData.name, activeDroneData.priceUah, activeDroneData.priceUsd);
+                closeDetailModal();
+            }
+        });
+    }
 });
