@@ -23,6 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const successModal = document.getElementById('success-modal');
     const successModalClose = document.getElementById('success-modal-close');
     
+    // Auth and Profile selectors
+    const authBtn = document.getElementById('auth-btn');
+    const authModal = document.getElementById('auth-modal');
+    const authClose = document.getElementById('auth-modal-close');
+    const loginForm = document.getElementById('auth-login-form');
+    const registerForm = document.getElementById('auth-register-form');
+    const authTabBtns = document.querySelectorAll('.auth-tab-btn');
+    const authFormContents = document.querySelectorAll('.auth-form-content');
+    
+    const profileModal = document.getElementById('profile-modal');
+    const profileClose = document.getElementById('profile-modal-close');
+    const profileUsernameVal = document.getElementById('profile-username-val');
+    const profileContactVal = document.getElementById('profile-contact-val');
+    const profileOrdersList = document.getElementById('profile-orders-list');
+    const profileLogoutBtn = document.getElementById('profile-logout-btn');
+    
     // Settings elements
     const settingsBtn = document.getElementById('settings-btn');
     const settingsModal = document.getElementById('settings-modal');
@@ -166,6 +182,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Send Notification
         sendFormNotification(subject, telegramText, rawData);
         
+        // If user is logged in, save order to their order history
+        const loggedUserJson = localStorage.getItem('drons_logged_in_user');
+        if (loggedUserJson) {
+            const user = JSON.parse(loggedUserJson);
+            const userOrders = JSON.parse(localStorage.getItem(`drons_orders_${user.username}`) || '[]');
+            const newOrder = {
+                date: new Date().toLocaleDateString('ru-RU'),
+                time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
+                items: cart.map(item => item.name),
+                totalPrice: `${totalPrice.toLocaleString('ru-RU')} руб.`
+            };
+            userOrders.push(newOrder);
+            localStorage.setItem(`drons_orders_${user.username}`, JSON.stringify(userOrders));
+        }
+        
         // Success workflow
         closeCart();
         cart = [];
@@ -305,6 +336,156 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
+
+    // --- User Authentication & Client Dashboard Logic ---
+    function checkAuthState() {
+        const loggedUserJson = localStorage.getItem('drons_logged_in_user');
+        if (loggedUserJson) {
+            const user = JSON.parse(loggedUserJson);
+            authBtn.textContent = `👤 ${user.username}`;
+            authBtn.classList.remove('btn-outline');
+            authBtn.classList.add('btn-primary');
+        } else {
+            authBtn.textContent = 'Войти';
+            authBtn.classList.remove('btn-primary');
+            authBtn.classList.add('btn-outline');
+        }
+    }
+
+    function openAuthOrProfile() {
+        const loggedUserJson = localStorage.getItem('drons_logged_in_user');
+        if (loggedUserJson) {
+            // Open profile
+            const user = JSON.parse(loggedUserJson);
+            profileUsernameVal.textContent = user.username;
+            profileContactVal.textContent = user.contact;
+            
+            // Generate order history
+            const orders = JSON.parse(localStorage.getItem(`drons_orders_${user.username}`) || '[]');
+            profileOrdersList.innerHTML = '';
+            
+            if (orders.length === 0) {
+                profileOrdersList.innerHTML = '<div class="order-history-empty">У вас пока нет оформленных заказов.</div>';
+            } else {
+                orders.forEach(order => {
+                    const card = document.createElement('div');
+                    card.className = 'order-history-card';
+                    card.innerHTML = `
+                        <div class="order-history-header">
+                            <span>Заказ от ${order.date} ${order.time}</span>
+                            <span style="color: var(--color-cyan);">${order.totalPrice}</span>
+                        </div>
+                        <div class="order-history-items">
+                            ${order.items.join(', ')}
+                        </div>
+                    `;
+                    profileOrdersList.appendChild(card);
+                });
+            }
+            
+            profileModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Open login/register modal
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeAuth() {
+        authModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function closeProfile() {
+        profileModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (authBtn) authBtn.addEventListener('click', openAuthOrProfile);
+    if (authClose) authClose.addEventListener('click', closeAuth);
+    if (profileClose) profileClose.addEventListener('click', closeProfile);
+
+    // Close on overlay clicks
+    authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) closeAuth();
+    });
+    profileModal.addEventListener('click', (e) => {
+        if (e.target === profileModal) closeProfile();
+    });
+
+    // Auth tabs switching
+    authTabBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            authTabBtns.forEach(b => b.classList.remove('active'));
+            authFormContents.forEach(c => c.classList.remove('active'));
+            
+            e.target.classList.add('active');
+            const targetId = e.target.dataset.tab;
+            if (targetId === 'tab-login') {
+                loginForm.classList.add('active');
+            } else {
+                registerForm.classList.add('active');
+            }
+        });
+    });
+
+    // Handling Registration
+    registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('register-username').value.trim();
+        const contact = document.getElementById('register-contact').value.trim();
+        const password = document.getElementById('register-password').value.trim();
+        
+        let users = JSON.parse(localStorage.getItem('drons_users') || '[]');
+        const userExists = users.some(u => u.username.toLowerCase() === username.toLowerCase());
+        
+        if (userExists) {
+            alert('Позывной или имя уже зарегистрировано!');
+            return;
+        }
+        
+        const newUser = { username, contact, password };
+        users.push(newUser);
+        localStorage.setItem('drons_users', JSON.stringify(users));
+        
+        // Log in the user automatically
+        localStorage.setItem('drons_logged_in_user', JSON.stringify(newUser));
+        checkAuthState();
+        
+        registerForm.reset();
+        closeAuth();
+    });
+
+    // Handling Login
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('login-username').value.trim();
+        const password = document.getElementById('login-password').value.trim();
+        
+        const users = JSON.parse(localStorage.getItem('drons_users') || '[]');
+        const user = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+        
+        if (user) {
+            localStorage.setItem('drons_logged_in_user', JSON.stringify(user));
+            checkAuthState();
+            loginForm.reset();
+            closeAuth();
+        } else {
+            alert('Неверный позывной или пароль!');
+        }
+    });
+
+    // Logout
+    profileLogoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('drons_logged_in_user');
+        checkAuthState();
+        closeProfile();
+    });
+
+    // Initialize Auth state check
+    checkAuthState();
 
     // --- Settings Modal Logic ---
     function openSettings() {

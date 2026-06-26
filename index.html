@@ -33,7 +33,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                     <span class="cart-badge" id="cart-count">0</span>
                 </button>
-                <a href="#about" class="btn btn-outline btn-sm hide-mobile" id="nav-cta">Консультация инженера</a>
+                <button class="btn btn-outline btn-sm" id="auth-btn">Войти</button>
             </div>
         </div>
     </header>
@@ -902,6 +902,65 @@
             </div>
             
             <button class="btn btn-primary btn-block" id="settings-save-btn">Сохранить</button>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal-content auth-modal-content">
+            <button class="modal-close" id="auth-modal-close">&times;</button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" data-tab="tab-login">Вход</button>
+                <button class="auth-tab-btn" data-tab="tab-register">Регистрация</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="auth-login-form" class="auth-form-content active">
+                <h3 class="modal-title" style="margin-bottom: 20px; font-family: 'Outfit', sans-serif;">Вход в кабинет</h3>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <input type="text" id="login-username" class="form-control" placeholder="Позывной или имя" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <input type="password" id="login-password" class="form-control" placeholder="Пароль" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Войти</button>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="auth-register-form" class="auth-form-content">
+                <h3 class="modal-title" style="margin-bottom: 20px; font-family: 'Outfit', sans-serif;">Регистрация</h3>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <input type="text" id="register-username" class="form-control" placeholder="Позывной или имя" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <input type="text" id="register-contact" class="form-control" placeholder="Telegram / Signal / Телефон" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <input type="password" id="register-password" class="form-control" placeholder="Пароль" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div class="modal-overlay" id="profile-modal">
+        <div class="modal-content profile-modal-content">
+            <button class="modal-close" id="profile-modal-close">&times;</button>
+            <h3 class="modal-title" style="margin-bottom: 10px; font-family: 'Outfit', sans-serif;">Личный кабинет</h3>
+            
+            <div class="profile-info-section" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 15px; margin-bottom: 20px; font-size: 0.9rem;">
+                <p style="margin: 5px 0;"><strong>Позывной / Имя:</strong> <span id="profile-username-val"></span></p>
+                <p style="margin: 5px 0;"><strong>Способ связи:</strong> <span id="profile-contact-val"></span></p>
+            </div>
+            
+            <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; color: var(--color-cyan); margin-bottom: 12px;">История ваших заказов</h4>
+            <div id="profile-orders-list" style="max-height: 220px; overflow-y: auto; margin-bottom: 25px; text-align: left; padding-right: 5px;">
+                <!-- Orders generated dynamically -->
+            </div>
+            
+            <button class="btn btn-secondary btn-block" id="profile-logout-btn">Выйти из аккаунта</button>
         </div>
     </div>
 
