@@ -23,6 +23,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const successModal = document.getElementById('success-modal');
     const successModalClose = document.getElementById('success-modal-close');
     
+    // Settings elements
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsModal = document.getElementById('settings-modal');
+    const settingsClose = document.getElementById('settings-modal-close');
+    const settingsTabBtns = document.querySelectorAll('.settings-tab-btn');
+    const settingsTabContents = document.querySelectorAll('.settings-tab-content');
+    const settingsSaveBtn = document.getElementById('settings-save-btn');
+    const tgTokenInput = document.getElementById('settings-tg-token');
+    const tgChatIdInput = document.getElementById('settings-tg-chatid');
+    const w3KeyInput = document.getElementById('settings-w3-key');
+    
     // --- Sticky Header Scroll Effect ---
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -137,12 +148,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('checkout-name').value;
         const phone = document.getElementById('checkout-phone').value;
         
-        // Log mockup data (simulating post request)
-        console.log("ORDER PLACED:", {
-            customer: { name, phone },
-            items: cart,
-            totalPrice: cart.reduce((acc, item) => acc + item.price, 0)
-        });
+        const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
+        
+        // Format products list for Telegram
+        let itemsListText = cart.map(item => `- *${item.name}* (${item.price.toLocaleString('ru-RU')} руб.)`).join('\n');
+        
+        const subject = `Новый заказ на сборку - ${name}`;
+        const telegramText = `🔔 *Новый заказ на сборку!*\n\n👤 *Заказчик:* ${name}\n📞 *Контакты:* ${phone}\n\n📦 *Выбранные системы:*\n${itemsListText}\n\n💰 *Итого:* *${totalPrice.toLocaleString('ru-RU')} руб.*`;
+        
+        const rawData = {
+            name: name,
+            phone: phone,
+            total_price: `${totalPrice.toLocaleString('ru-RU')} руб.`,
+            items: cart.map(item => `${item.name} (${item.price} руб.)`).join(', ')
+        };
+        
+        // Send Notification
+        sendFormNotification(subject, telegramText, rawData);
         
         // Success workflow
         closeCart();
@@ -160,7 +182,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('lead-name').value;
         const contact = document.getElementById('lead-contact').value;
         
-        console.log("LEAD CAPTURED:", { name, contact });
+        const subject = `Запрос на спец-конфигурацию - ${name}`;
+        const telegramText = `📞 *Новый запрос на спец-конфигурацию!*\n\n👤 *Контактное лицо / Позывной:* ${name}\n💬 *Способ связи:* ${contact}`;
+        
+        const rawData = {
+            name: name,
+            contact_info: contact
+        };
+        
+        // Send Notification
+        sendFormNotification(subject, telegramText, rawData);
         
         leadForm.reset();
         
@@ -272,6 +303,104 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeDetailModal();
             }
         });
+    }
+
+
+    // --- Settings Modal Logic ---
+    function openSettings() {
+        // Load saved values
+        tgTokenInput.value = localStorage.getItem('drons_tg_token') || '';
+        tgChatIdInput.value = localStorage.getItem('drons_tg_chatid') || '';
+        w3KeyInput.value = localStorage.getItem('drons_w3_key') || '';
+        
+        settingsModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSettings() {
+        settingsModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (settingsBtn) settingsBtn.addEventListener('click', openSettings);
+    if (settingsClose) settingsClose.addEventListener('click', closeSettings);
+    settingsModal.addEventListener('click', (e) => {
+        if (e.target === settingsModal) closeSettings();
+    });
+
+    // Tab switching
+    settingsTabBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            settingsTabBtns.forEach(b => b.classList.remove('active'));
+            settingsTabContents.forEach(c => c.classList.remove('active'));
+            
+            e.target.classList.add('active');
+            const targetId = e.target.dataset.tab;
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+
+    // Save settings
+    if (settingsSaveBtn) {
+        settingsSaveBtn.addEventListener('click', () => {
+            localStorage.setItem('drons_tg_token', tgTokenInput.value.trim());
+            localStorage.setItem('drons_tg_chatid', tgChatIdInput.value.trim());
+            localStorage.setItem('drons_w3_key', w3KeyInput.value.trim());
+            
+            alert('Настройки уведомлений успешно сохранены!');
+            closeSettings();
+        });
+    }
+
+    // --- Helper to Send Real Notification ---
+    async function sendFormNotification(subject, textContent, rawData) {
+        const tgToken = localStorage.getItem('drons_tg_token');
+        const tgChatId = localStorage.getItem('drons_tg_chatid');
+        const w3Key = localStorage.getItem('drons_w3_key');
+        
+        let sentAny = false;
+        
+        // 1. Send via Telegram Bot
+        if (tgToken && tgChatId) {
+            try {
+                const url = `https://api.telegram.org/bot${tgToken}/sendMessage`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: tgChatId,
+                        text: textContent,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                if (response.ok) sentAny = true;
+            } catch (err) {
+                console.error("Telegram API Error:", err);
+            }
+        }
+        
+        // 2. Send via Web3Forms
+        if (w3Key) {
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        access_key: w3Key,
+                        subject: subject,
+                        from_name: 'TACTICAL DRONS',
+                        ...rawData
+                    })
+                });
+                if (response.ok) sentAny = true;
+            } catch (err) {
+                console.error("Web3Forms API Error:", err);
+            }
+        }
+        
+        if (!sentAny) {
+            console.log("Заявка симулирована. Настройте Telegram или Email в настройках (иконка шестеренки), чтобы получать реальные уведомления!");
+        }
     }
 
     // --- Catalog Filtering and Search Logic ---

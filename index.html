@@ -26,6 +26,9 @@
                 <a href="#about" class="nav-link">О лаборатории</a>
             </nav>
             <div class="header-actions">
+                <button class="settings-trigger" id="settings-btn" title="Настройки уведомлений" aria-label="Настройки уведомлений">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
                 <button class="cart-trigger" id="cart-btn" aria-label="Открыть запрос">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                     <span class="cart-badge" id="cart-count">0</span>
@@ -865,5 +868,42 @@
 
     <!-- Custom Script -->
     <script src="script.js?v=1.6.0"></script>
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-content settings-modal-content">
+            <button class="modal-close" id="settings-modal-close">&times;</button>
+            <h3 class="modal-title">Настройки уведомлений</h3>
+            <p class="settings-desc">Укажите реквизиты, чтобы заявки с сайта мгновенно приходили к вам.</p>
+            
+            <div class="settings-tabs">
+                <button class="settings-tab-btn active" data-tab="tab-tg">Telegram</button>
+                <button class="settings-tab-btn" data-tab="tab-email">Email (Web3Forms)</button>
+            </div>
+            
+            <div class="settings-tab-content active" id="tab-tg">
+                <div class="form-group" style="text-align: left; margin-bottom: 15px;">
+                    <label for="settings-tg-token" style="display: block; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500;">Токен Telegram-бота</label>
+                    <input type="text" id="settings-tg-token" class="form-control" placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ">
+                    <small class="form-text" style="display: block; margin-top: 5px; font-size: 0.75rem; color: var(--text-secondary);">Создайте бота у <a href="https://t.me/BotFather" target="_blank" style="color: var(--color-cyan); text-decoration: none;">@BotFather</a> и получите токен.</small>
+                </div>
+                <div class="form-group" style="text-align: left; margin-bottom: 20px;">
+                    <label for="settings-tg-chatid" style="display: block; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500;">ID чата (Chat ID)</label>
+                    <input type="text" id="settings-tg-chatid" class="form-control" placeholder="987654321">
+                    <small class="form-text" style="display: block; margin-top: 5px; font-size: 0.75rem; color: var(--text-secondary);">Узнайте свой ID у ботов вроде <a href="https://t.me/userinfobot" target="_blank" style="color: var(--color-cyan); text-decoration: none;">@userinfobot</a>.</small>
+                </div>
+            </div>
+            
+            <div class="settings-tab-content" id="tab-email">
+                <div class="form-group" style="text-align: left; margin-bottom: 20px;">
+                    <label for="settings-w3-key" style="display: block; font-size: 0.85rem; margin-bottom: 5px; font-weight: 500;">Ключ Web3Forms (Access Key)</label>
+                    <input type="text" id="settings-w3-key" class="form-control" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+                    <small class="form-text" style="display: block; margin-top: 5px; font-size: 0.75rem; color: var(--text-secondary);">Бесплатный токен на отправку писем с сайта: <a href="https://web3forms.com/" target="_blank" style="color: var(--color-cyan); text-decoration: none;">web3forms.com</a>.</small>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary btn-block" id="settings-save-btn">Сохранить</button>
+        </div>
+    </div>
+
 </body>
 </html>

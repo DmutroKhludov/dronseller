@@ -1402,3 +1402,90 @@ a {
         height: 32px;
     }
 }
+
+/* --- Settings Modal Styles --- */
+.settings-trigger {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    position: relative;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+}
+
+.settings-trigger:hover {
+    color: var(--color-cyan);
+}
+
+.icon-settings {
+    width: 22px;
+    height: 22px;
+}
+
+.settings-modal-content {
+    text-align: left;
+    max-width: 460px !important;
+    position: relative;
+}
+
+.settings-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+.settings-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.settings-tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: var(--transition-fast);
+    border-radius: 4px;
+}
+
+.settings-tab-btn.active {
+    color: var(--color-cyan);
+    background-color: rgba(124, 169, 59, 0.15);
+    font-weight: 600;
+}
+
+.settings-tab-content {
+    display: none;
+}
+
+.settings-tab-content.active {
+    display: block;
+}
+
+.settings-modal-content .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.settings-modal-content .modal-close:hover {
+    color: var(--text-primary);
+}
