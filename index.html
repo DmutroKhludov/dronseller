@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=1.4.0">
+    <link rel="stylesheet" href="style.css?v=1.5.0">
 </head>
 <body>
 
@@ -93,6 +93,22 @@
                 <span class="section-subtitle">ГОТОВІ СИСТЕМИ ДЛЯ ПІДРОЗДІЛІВ</span>
                 <h2 class="section-title">МОДЕЛЬНИЙ РЯД</h2>
                 <div class="section-line"></div>
+            </div>
+            
+            <!-- Catalog Controls (Filters & Search) -->
+            <div class="catalog-controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Всі</button>
+                    <button class="filter-btn" data-filter="recon">Розвідка</button>
+                    <button class="filter-btn" data-filter="strike">Ударні</button>
+                    <button class="filter-btn" data-filter="cargo">Вантажні</button>
+                    <button class="filter-btn" data-filter="longrange">Дальнольоти</button>
+                    <button class="filter-btn" data-filter="antireb">РЕБ-захист</button>
+                </div>
+                <div class="search-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="catalog-search" placeholder="Пошук за назвою або описом..." autocomplete="off">
+                </div>
             </div>
             
             <div class="drones-grid">
@@ -716,6 +732,6 @@
     </div>
 
     <!-- Custom Script -->
-    <script src="script.js?v=1.4.0"></script>
+    <script src="script.js?v=1.5.0"></script>
 </body>
 </html>

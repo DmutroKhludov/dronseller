@@ -285,4 +285,73 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Catalog Filtering and Search Logic ---
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('catalog-search');
+    const catalogDrones = document.querySelectorAll('.drones-grid .drone-card');
+
+    function getCategoryFromBadge(badgeText) {
+        const text = badgeText.trim().toUpperCase();
+        if (["РОЗВІДКА", "ТЕПЛОВІЗОР", "КОМПАКТНИЙ", "МІКРО-ЗОНД", "ІНДОР-ЗОНД", "КВАДРОКОПТЕР"].includes(text)) {
+            return 'recon';
+        }
+        if (["ШТУРМОВИЙ", "БОМБАРДУВАЛЬНИК", "ПЕРЕХОПЛЮВАЧ"].includes(text)) {
+            return 'strike';
+        }
+        if (["ВАНТАЖНИЙ", "ПРОМИСЛОВИЙ"].includes(text)) {
+            return 'cargo';
+        }
+        if (text === "ДАЛЬНОЛІТ") {
+            return 'longrange';
+        }
+        if (text === "ПРОРИВ РЕБ") {
+            return 'antireb';
+        }
+        return 'all';
+    }
+
+    function filterCatalog() {
+        const activeFilterBtn = document.querySelector('.filter-btn.active');
+        const currentFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+        const searchQuery = searchInput.value.toLowerCase().trim();
+
+        catalogDrones.forEach(card => {
+            const title = card.querySelector('.drone-title').textContent.toLowerCase();
+            const desc = card.querySelector('.drone-desc').textContent.toLowerCase();
+            const details = (card.dataset.details || "").toLowerCase();
+            const badge = card.querySelector('.drone-badge');
+            const badgeText = badge ? badge.textContent : "";
+            const category = getCategoryFromBadge(badgeText);
+
+            // Filter match
+            const matchesFilter = (currentFilter === 'all' || category === currentFilter);
+
+            // Search match
+            const matchesSearch = !searchQuery || 
+                                  title.includes(searchQuery) || 
+                                  desc.includes(searchQuery) || 
+                                  details.includes(searchQuery);
+
+            if (matchesFilter && matchesSearch) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Filter button clicks
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            filterCatalog();
+        });
+    });
+
+    // Search input typing
+    if (searchInput) {
+        searchInput.addEventListener('input', filterCatalog);
+    }
 });

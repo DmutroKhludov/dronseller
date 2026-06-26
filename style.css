@@ -441,6 +441,93 @@ a {
     padding: 100px 0;
 }
 
+/* Catalog Controls (Filters & Search) */
+.catalog-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    background: rgba(17, 21, 28, 0.4);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    background: rgba(124, 169, 59, 0.1);
+    border-color: var(--color-cyan);
+    color: var(--color-cyan);
+    box-shadow: 0 0 10px rgba(124, 169, 59, 0.15);
+}
+
+.search-box {
+    position: relative;
+    width: 320px;
+    flex-shrink: 0;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--text-secondary);
+    pointer-events: none;
+    transition: color var(--transition-normal);
+}
+
+#catalog-search {
+    width: 100%;
+    background-color: var(--bg-main);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 16px 10px 42px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: all var(--transition-normal);
+}
+
+#catalog-search:focus {
+    border-color: var(--color-cyan);
+    box-shadow: 0 0 10px rgba(124, 169, 59, 0.15);
+}
+
+#catalog-search:focus + .search-icon {
+    color: var(--color-cyan);
+}
+
 .drones-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -1063,6 +1150,17 @@ a {
 }
 
 @media (max-width: 768px) {
+    .catalog-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+    .search-box {
+        width: 100%;
+    }
+    .filter-buttons {
+        justify-content: center;
+    }
     .drones-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 16px;
