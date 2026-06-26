@@ -35,11 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             header.style.padding = '10px 0';
-            header.style.backgroundColor = 'rgba(6, 7, 9, 0.9)';
+            header.style.backgroundColor = 'rgba(10, 12, 15, 0.9)';
             header.style.height = '70px';
         } else {
             header.style.padding = '0';
-            header.style.backgroundColor = 'rgba(6, 7, 9, 0.7)';
+            header.style.backgroundColor = 'rgba(10, 12, 15, 0.75)';
             header.style.height = '80px';
         }
     });
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let baseSpeed = 0;
         let speedModifier = 0;
         let videoType = "Analog FPV";
-        let frameName = "Індивідуальна 5\"";
+        let frameName = "Тактична 7\"";
 
         // Get checked inputs
         const selectedFrame = document.querySelector('input[name="frame"]:checked');
@@ -67,9 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
             totalWeight += parseInt(card.dataset.weight);
             baseSpeed = parseInt(card.dataset.speed);
             
-            if (selectedFrame.value === 'freestyle') frameName = 'Apex-X 5" Freestyle';
-            if (selectedFrame.value === 'racing') frameName = 'Phantom 5" Racing';
-            if (selectedFrame.value === 'whoop') frameName = 'CineLog 2.5" Whoop';
+            if (selectedFrame.value === 'freestyle') frameName = '7" Тактична розвідка';
+            if (selectedFrame.value === 'racing') frameName = '10" Вантажна посилена';
+            if (selectedFrame.value === 'whoop') frameName = '8" Гібридна розвідка';
         }
 
         if (selectedBattery) {
@@ -86,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
             totalPriceUsd += parseInt(card.dataset.priceUsd);
             totalWeight += parseInt(card.dataset.weight);
             
-            if (selectedVideo.value === 'analog') videoType = 'Analog FPV';
+            if (selectedVideo.value === 'analog') videoType = 'Analog FPV Link';
             if (selectedVideo.value === 'vista') videoType = 'Digital HD (720p)';
-            if (selectedVideo.value === 'o3') videoType = 'DJI O3 Air Unit 4K';
+            if (selectedVideo.value === 'o3') videoType = 'Тепловізор + HD';
         }
 
         if (selectedRx) {
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cartCloseBtn.addEventListener('click', closeCart);
     cartOverlay.addEventListener('click', closeCart);
 
-    // Add BNF/RTF drones to cart from catalog
+    // Add tactical drones to cart from catalog
     const addCatalogBtns = document.querySelectorAll('.add-to-cart-btn');
     addCatalogBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
