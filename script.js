@@ -18,13 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartCountBadge = document.getElementById('cart-count');
     const checkoutForm = document.getElementById('cart-checkout-form-elem');
     
-    // Configurator Options
-    const configCards = document.querySelectorAll('.config-card');
-    const specWeightVal = document.getElementById('spec-weight-val');
-    const specSpeedVal = document.getElementById('spec-speed-val');
-    const specVideoVal = document.getElementById('spec-video-val');
-    const configTotalPrice = document.getElementById('config-total-price');
-    const configAddCartBtn = document.getElementById('config-add-cart');
+
     
     // Forms & Modals
     const leadForm = document.getElementById('lead-form');
@@ -44,97 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Configurator Logic ---
-    function updateConfigurator() {
-        let totalPriceUah = 0;
-        let totalPriceUsd = 0;
-        let totalWeight = 0;
-        let baseSpeed = 0;
-        let speedModifier = 0;
-        let videoType = "Analog FPV";
-        let frameName = "Тактична 7\"";
 
-        // Get checked inputs
-        const selectedFrame = document.querySelector('input[name="frame"]:checked');
-        const selectedBattery = document.querySelector('input[name="battery"]:checked');
-        const selectedVideo = document.querySelector('input[name="video"]:checked');
-        const selectedRx = document.querySelector('input[name="rx"]:checked');
-
-        if (selectedFrame) {
-            const card = selectedFrame.closest('.config-card');
-            totalPriceUah += parseInt(card.dataset.priceUah);
-            totalPriceUsd += parseInt(card.dataset.priceUsd);
-            totalWeight += parseInt(card.dataset.weight);
-            baseSpeed = parseInt(card.dataset.speed);
-            
-            if (selectedFrame.value === 'freestyle') frameName = '7" Тактична розвідка';
-            if (selectedFrame.value === 'racing') frameName = '10" Вантажна посилена';
-            if (selectedFrame.value === 'whoop') frameName = '8" Гібридна розвідка';
-        }
-
-        if (selectedBattery) {
-            const card = selectedBattery.closest('.config-card');
-            totalPriceUah += parseInt(card.dataset.priceUah);
-            totalPriceUsd += parseInt(card.dataset.priceUsd);
-            totalWeight += parseInt(card.dataset.weight);
-            speedModifier += parseInt(card.dataset.speed);
-        }
-
-        if (selectedVideo) {
-            const card = selectedVideo.closest('.config-card');
-            totalPriceUah += parseInt(card.dataset.priceUah);
-            totalPriceUsd += parseInt(card.dataset.priceUsd);
-            totalWeight += parseInt(card.dataset.weight);
-            
-            if (selectedVideo.value === 'analog') videoType = 'Analog FPV Link';
-            if (selectedVideo.value === 'vista') videoType = 'Digital HD (720p)';
-            if (selectedVideo.value === 'o3') videoType = 'Тепловізор + HD';
-        }
-
-        if (selectedRx) {
-            const card = selectedRx.closest('.config-card');
-            totalPriceUah += parseInt(card.dataset.priceUah);
-            totalPriceUsd += parseInt(card.dataset.priceUsd);
-            totalWeight += parseInt(card.dataset.weight);
-        }
-
-        // Calculate and update UI
-        const calculatedSpeed = baseSpeed + speedModifier;
-        
-        specWeightVal.textContent = `${totalWeight} г`;
-        specSpeedVal.textContent = `~ ${calculatedSpeed} км/год`;
-        specVideoVal.textContent = videoType;
-        configTotalPrice.textContent = `${totalPriceUah.toLocaleString('uk-UA')} грн / $${totalPriceUsd}`;
-
-        // Store selected options info on the Add to Cart button for easy reading
-        configAddCartBtn.dataset.priceUah = totalPriceUah;
-        configAddCartBtn.dataset.priceUsd = totalPriceUsd;
-        configAddCartBtn.dataset.name = `Кастом FPV (${frameName})`;
-    }
-
-    // Config option clicks
-    configCards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            const input = this.querySelector('input[type="radio"]');
-            const groupName = input.name;
-            
-            // Uncheck all other sibling cards in the group
-            const siblingCards = document.querySelectorAll(`input[name="${groupName}"]`);
-            siblingCards.forEach(sib => {
-                sib.closest('.config-card').classList.remove('checked');
-            });
-            
-            // Check this card
-            input.checked = true;
-            this.classList.add('checked');
-            
-            // Recalculate config values
-            updateConfigurator();
-        });
-    });
-
-    // Run configurator update on load to set initial values
-    updateConfigurator();
 
     // --- Cart Functions ---
     function openCart() {
@@ -227,13 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Add custom builder configuration to cart
-    configAddCartBtn.addEventListener('click', (e) => {
-        const name = e.target.dataset.name;
-        const priceUah = e.target.dataset.priceUah;
-        const priceUsd = e.target.dataset.priceUsd;
-        addToCart(name, priceUah, priceUsd);
-    });
+
 
     // Add empty cart CTA trigger to close drawer and scroll to catalog
     document.getElementById('cart-empty-cta').addEventListener('click', (e) => {

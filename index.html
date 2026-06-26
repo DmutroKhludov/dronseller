@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=1.2.0">
+    <link rel="stylesheet" href="style.css?v=1.3.0">
 </head>
 <body>
 
@@ -22,7 +22,6 @@
             </a>
             <nav class="nav" id="main-nav">
                 <a href="#drones" class="nav-link">Каталог систем</a>
-                <a href="#configurator" class="nav-link">Конфігуратор</a>
                 <a href="#specs" class="nav-link">Стандарти</a>
                 <a href="#about" class="nav-link">Про лабораторію</a>
             </nav>
@@ -31,7 +30,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                     <span class="cart-badge" id="cart-count">0</span>
                 </button>
-                <a href="#configurator" class="btn btn-outline btn-sm hide-mobile" id="nav-cta">Конфігурувати дрон</a>
+                <a href="#about" class="btn btn-outline btn-sm hide-mobile" id="nav-cta">Консультація інженера</a>
             </div>
         </div>
     </header>
@@ -52,9 +51,9 @@
                 </p>
                 <div class="hero-ctas">
                     <a href="#drones" class="btn btn-primary" id="hero-cta-primary">Дивитись каталог</a>
-                    <a href="#configurator" class="btn btn-secondary" id="hero-cta-secondary">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                        Специфікатор
+                    <a href="#about" class="btn btn-secondary" id="hero-cta-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        Зв'язатися
                     </a>
                 </div>
             </div>
@@ -540,137 +539,7 @@
         </div>
     </section>
 
-    <!-- Configurator Section -->
-    <section class="configurator-section" id="configurator">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">СПЕЦИФІКАТОР ТАКТИЧНИХ КОМПЛЕКТІВ</span>
-                <h2 class="section-title">КОНФІГУРАТОР ЗБІРКИ</h2>
-                <div class="section-line"></div>
-            </div>
 
-            <div class="configurator-container">
-                <!-- Customizer Options -->
-                <div class="config-options">
-                    
-                    <!-- Frame Select -->
-                    <div class="config-group" id="group-frame">
-                        <span class="config-group-title">1. Вибір рами та призначення</span>
-                        <div class="config-grid">
-                            <label class="config-card checked" data-type="frame" data-value="freestyle" data-price-uah="5000" data-price-usd="125" data-weight="190" data-speed="130">
-                                <input type="radio" name="frame" value="freestyle" checked>
-                                <span class="config-card-title">7" Тактична розвідка</span>
-                                <span class="config-card-desc">Маневреність, швидкість, дальність (+5 000 грн / $125)</span>
-                            </label>
-                            <label class="config-card" data-type="frame" data-value="racing" data-price-uah="8000" data-price-usd="200" data-weight="320" data-speed="110">
-                                <input type="radio" name="frame" value="racing">
-                                <span class="config-card-title">10" Вантажна посилена</span>
-                                <span class="config-card-desc">Тяга для важкого спорядження (+8 000 грн / $200)</span>
-                            </label>
-                            <label class="config-card" data-type="frame" data-value="whoop" data-price-uah="6500" data-price-usd="160" data-weight="240" data-speed="120">
-                                <input type="radio" name="frame" value="whoop">
-                                <span class="config-card-title">8" Гібридна розвідка</span>
-                                <span class="config-card-desc">Баланс ваги та часу польоту (+6 500 грн / $160)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Battery / Power Select -->
-                    <div class="config-group" id="group-battery">
-                        <span class="config-group-title">2. Моторна група та живлення</span>
-                        <div class="config-grid">
-                            <label class="config-card" data-type="battery" data-value="4s" data-price-uah="5000" data-price-usd="125" data-weight="210" data-speed="0">
-                                <input type="radio" name="battery" value="4s">
-                                <span class="config-card-title">6S High-Efficiency</span>
-                                <span class="config-card-desc">Максимальний час у повітрі (до 1.5 кг вантажу) (+5 000 грн / $125)</span>
-                            </label>
-                            <label class="config-card checked" data-type="battery" data-value="6s" data-price-uah="8000" data-price-usd="200" data-weight="340" data-speed="20">
-                                <input type="radio" name="battery" value="6s" checked>
-                                <span class="config-card-title">8S Heavy-Duty Pro</span>
-                                <span class="config-card-desc">Надпотужні мотори для перенесення вантажів до 3.5 кг (+8 000 грн / $200)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Video Link Select -->
-                    <div class="config-group" id="group-video">
-                        <span class="config-group-title">3. Оптика та відеозв'язок</span>
-                        <div class="config-grid">
-                            <label class="config-card" data-type="video" data-value="analog" data-price-uah="3000" data-price-usd="75" data-weight="18" data-speed="0">
-                                <input type="radio" name="video" value="analog">
-                                <span class="config-card-title">Analog FPV Link</span>
-                                <span class="config-card-desc">Супернизька затримка, стійкість до перешкод (+3 000 грн / $75)</span>
-                            </label>
-                            <label class="config-card checked" data-type="video" data-value="vista" data-price-uah="6000" data-price-usd="150" data-weight="30" data-speed="0">
-                                <input type="radio" name="video" value="vista" checked>
-                                <span class="config-card-title">Digital HD (720p)</span>
-                                <span class="config-card-desc">Чітка картинка для детальної денної розвідки (+6 000 грн / $150)</span>
-                            </label>
-                            <label class="config-card" data-type="video" data-value="o3" data-price-uah="22000" data-price-usd="550" data-weight="95" data-speed="-10">
-                                <input type="radio" name="video" value="o3">
-                                <span class="config-card-title">Тепловізор + HD оптика</span>
-                                <span class="config-card-desc">Інфрачервона детекція для нічних операцій (+22 000 грн / $550)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Receiver Select -->
-                    <div class="config-group" id="group-rx">
-                        <span class="config-group-title">4. Канал радіокерування (Захист від РЕБ)</span>
-                        <div class="config-grid">
-                            <label class="config-card checked" data-type="rx" data-value="elrs" data-price-uah="1500" data-price-usd="35" data-weight="5" data-speed="0">
-                                <input type="radio" name="rx" value="elrs" checked>
-                                <span class="config-card-title">ExpressLRS 915 MHz</span>
-                                <span class="config-card-desc">Далекобійний стійкий канал низької частоти (+1 500 грн / $35)</span>
-                            </label>
-                            <label class="config-card" data-type="rx" data-value="crossfire" data-price-uah="3500" data-price-usd="85" data-weight="8" data-speed="0">
-                                <input type="radio" name="rx" value="crossfire">
-                                <span class="config-card-title">TBS Crossfire Diversity</span>
-                                <span class="config-card-desc">Максимальний захист лінка від завад (+3 500 грн / $85)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Configurator Sticky Stats -->
-                <div class="config-summary-panel" id="config-summary">
-                    <div class="summary-card">
-                        <h3 class="summary-title">СПЕЦИФІКАЦІЯ ЗБІРКИ</h3>
-                        
-                        <div class="summary-visual">
-                            <div class="summary-visual-glow"></div>
-                            <!-- Static overlay that hints at custom building -->
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="svg-drone-draw"><path d="M12 2v20M2 12h20M12 12m-6 0a6 6 0 1 0 12 0 6 6 0 1 0 -12 0M6.5 6.5l11 11M6.5 17.5l11-11"></path></svg>
-                        </div>
-
-                        <div class="summary-specs">
-                            <div class="summary-spec-row">
-                                <span>Сумарна вага:</span>
-                                <strong id="spec-weight-val">435 г</strong>
-                            </div>
-                            <div class="summary-spec-row">
-                                <span>Максимальна швидкість:</span>
-                                <strong id="spec-speed-val">~ 130 км/год</strong>
-                            </div>
-                            <div class="summary-spec-row">
-                                <span>Оптика / Камера:</span>
-                                <strong id="spec-video-val">Digital HD</strong>
-                            </div>
-                        </div>
-
-                        <div class="summary-price-container">
-                            <span class="price-label">Загальна вартість комплекту:</span>
-                            <span class="summary-price" id="config-total-price">20 500 грн / $510</span>
-                        </div>
-
-                        <button class="btn btn-primary btn-block" id="config-add-cart">Додати до кошика запиту</button>
-                        <p class="summary-hint">*Перед відправкою кожен дрон проходить обов'язковий обліт із навантаженням та перевірку частот зв'язку на відповідність спектру.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Standards Grid -->
     <section class="tech-section" id="specs">
@@ -744,7 +613,6 @@
             <div class="footer-links">
                 <h4>Навігація</h4>
                 <a href="#drones">Каталог</a>
-                <a href="#configurator">Конфігуратор</a>
                 <a href="#specs">Стандарти</a>
                 <a href="#about">Зв'язок</a>
             </div>
@@ -848,6 +716,6 @@
     </div>
 
     <!-- Custom Script -->
-    <script src="script.js?v=1.2.0"></script>
+    <script src="script.js?v=1.3.0"></script>
 </body>
 </html>
