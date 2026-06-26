@@ -1474,21 +1474,7 @@ a {
     display: block;
 }
 
-.settings-modal-content .modal-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: var(--transition-fast);
-}
 
-.settings-modal-content .modal-close:hover {
-    color: var(--text-primary);
-}
 
 /* --- Auth and Profile Modal Styles --- */
 .auth-modal-content, .profile-modal-content {
@@ -1569,4 +1555,30 @@ a {
     text-align: center;
     padding: 20px 0;
     font-size: 0.9rem;
+}
+
+/* --- Premium Modal Close Button --- */
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background-color: var(--color-cyan);
+    color: #fff;
+    transform: rotate(90deg);
+    box-shadow: 0 0 15px rgba(124, 169, 59, 0.4);
 }
