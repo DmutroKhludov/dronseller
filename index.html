@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRONSELLER | Премиальные FPV дроны для фристайла и гонок</title>
+    <meta name="description" content="Купить высокотехнологичные FPV дроны для фристайла, гонок и кинематографичной съемки. Соберите свой уникальный дрон в интерактивном конфигураторе.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="header" id="navbar">
+        <div class="container header-container">
+            <a href="#" class="logo" id="header-logo">
+                <span class="logo-accent">DRON</span>SELLER
+            </a>
+            <nav class="nav" id="main-nav">
+                <a href="#drones" class="nav-link">Каталог</a>
+                <a href="#configurator" class="nav-link">Конфигуратор</a>
+                <a href="#specs" class="nav-link">Технологии</a>
+                <a href="#about" class="nav-link">О нас</a>
+            </nav>
+            <div class="header-actions">
+                <button class="cart-trigger" id="cart-btn" aria-label="Открыть корзину">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </button>
+                <a href="#configurator" class="btn btn-outline btn-sm hide-mobile" id="nav-cta">Собрать дрон</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg-overlay"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="tagline" id="hero-tagline">
+                    <span class="tagline-dot"></span> HIGH-PERFORMANCE FPV SYSTEMS
+                </div>
+                <h1 class="hero-title" id="hero-main-title">
+                    ПОКОРЯЙ <br><span class="gradient-text">ВЫСОТУ И СКОРОСТЬ</span>
+                </h1>
+                <p class="hero-desc" id="hero-description">
+                    Профессиональные FPV дроны ручной сборки для фристайла, гонок и кинематографичных кадров. Управление на грани инстинктов, видеосвязь сверхнизкой задержки и невероятная прочность.
+                </p>
+                <div class="hero-ctas">
+                    <a href="#drones" class="btn btn-primary" id="hero-cta-primary">Смотреть каталог</a>
+                    <a href="#configurator" class="btn btn-secondary" id="hero-cta-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        Конфигуратор
+                    </a>
+                </div>
+            </div>
+            <div class="hero-media" id="hero-image-wrapper">
+                <div class="hero-image-glow"></div>
+                <img src="assets/hero-drone.jpg" alt="FPV Drone Freestyle 5 inch" class="hero-image" id="hero-main-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Grid -->
+    <section class="quick-stats" id="stats">
+        <div class="container stats-container">
+            <div class="stat-card" id="stat-speed">
+                <span class="stat-value">180 +</span>
+                <span class="stat-label">км/ч Макс. Скорость</span>
+            </div>
+            <div class="stat-card" id="stat-latency">
+                <span class="stat-value">&lt; 28 мс</span>
+                <span class="stat-label">Задержка видео (O3 HD)</span>
+            </div>
+            <div class="stat-card" id="stat-g">
+                <span class="stat-value">6 G</span>
+                <span class="stat-label">Максимальная перегрузка</span>
+            </div>
+            <div class="stat-card" id="stat-range">
+                <span class="stat-value">10 км</span>
+                <span class="stat-label">Дальность связи</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section class="drones-catalog" id="drones">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">ГОТОВЫЕ РЕШЕНИЯ (RTF / BNF)</span>
+                <h2 class="section-title">ВЫБЕРИТЕ СВОЙ СНАРЯД</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="drones-grid">
+                <!-- Product 1 -->
+                <div class="drone-card" id="prod-apex">
+                    <div class="drone-card-img-wrapper">
+                        <img src="assets/apex-freestyle.jpg" alt="Apex-X 5 Freestyle FPV" class="drone-card-img">
+                        <span class="drone-badge badge-cyan">ФРИСТАЙЛ</span>
+                    </div>
+                    <div class="drone-card-body">
+                        <h3 class="drone-title">Apex-X 5" Freestyle</h3>
+                        <p class="drone-desc">Легендарная неубиваемая рама Apex, настроенные рейты для плавного фристайла и резких трюков. Любимец пилотов по всему миру.</p>
+                        <div class="drone-specs-list">
+                            <div class="drone-spec"><span class="spec-name">Рама:</span> <span class="spec-val">5 дюймов Apex</span></div>
+                            <div class="drone-spec"><span class="spec-name">Питание:</span> <span class="spec-val">6S (2207 1950KV)</span></div>
+                            <div class="drone-spec"><span class="spec-name">Линк:</span> <span class="spec-val">Caddx Vista (HD) / ELRS 2.4G</span></div>
+                            <div class="drone-spec"><span class="spec-name">Скорость:</span> <span class="spec-val">до 140 км/ч</span></div>
+                        </div>
+                        <div class="drone-card-footer">
+                            <span class="drone-price">34 900 ₽</span>
+                            <button class="btn btn-primary btn-sm add-to-cart-btn" data-id="apex" data-name="Apex-X 5&quot; Freestyle" data-price="34900" id="btn-buy-apex">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="drone-card" id="prod-phantom">
+                    <div class="drone-card-img-wrapper">
+                        <img src="assets/phantom-racing.jpg" alt="Phantom Racing 5 FPV" class="drone-card-img">
+                        <span class="drone-badge badge-orange">ГОНКИ / СКОРОСТЬ</span>
+                    </div>
+                    <div class="drone-card-body">
+                        <h3 class="drone-title">Phantom Racing 5"</h3>
+                        <p class="drone-desc">Ультимативный болид для соревнований. Облегченная рама, моторы с высоким KV, аэродинамический обтекатель для максимальной скорости.</p>
+                        <div class="drone-specs-list">
+                            <div class="drone-spec"><span class="spec-name">Рама:</span> <span class="spec-val">5 дюймов Stretch X</span></div>
+                            <div class="drone-spec"><span class="spec-name">Питание:</span> <span class="spec-val">6S (2207.5 2100KV)</span></div>
+                            <div class="drone-spec"><span class="spec-name">Линк:</span> <span class="spec-val">DJI O3 Air Unit / ELRS 2.4G</span></div>
+                            <div class="drone-spec"><span class="spec-name">Скорость:</span> <span class="spec-val">до 180 км/ч</span></div>
+                        </div>
+                        <div class="drone-card-footer">
+                            <span class="drone-price">39 900 ₽</span>
+                            <button class="btn btn-primary btn-sm add-to-cart-btn" data-id="phantom" data-name="Phantom Racing 5&quot;" data-price="39900" id="btn-buy-phantom">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="drone-card" id="prod-cinelog">
+                    <div class="drone-card-img-wrapper">
+                        <img src="assets/cinelog-whoop.jpg" alt="CineLog 25 Whoop FPV" class="drone-card-img">
+                        <span class="drone-badge badge-purple">СИНЕВУП / КИНО</span>
+                    </div>
+                    <div class="drone-card-body">
+                        <h3 class="drone-title">CineLog 25 Whoop</h3>
+                        <p class="drone-desc">Компактный и безопасный дрон с защитой пропеллеров. Идеален для плавных кинематографичных съемок в помещениях и близко к людям.</p>
+                        <div class="drone-specs-list">
+                            <div class="drone-spec"><span class="spec-name">Рама:</span> <span class="spec-val">2.5 дюйма с дактами</span></div>
+                            <div class="drone-spec"><span class="spec-name">Питание:</span> <span class="spec-val">4S (1404 4500KV)</span></div>
+                            <div class="drone-spec"><span class="spec-name">Линк:</span> <span class="spec-val">DJI O3 Air Unit / ELRS 2.4G</span></div>
+                            <div class="drone-spec"><span class="spec-name">Скорость:</span> <span class="spec-val">до 80 км/ч</span></div>
+                        </div>
+                        <div class="drone-card-footer">
+                            <span class="drone-price">28 900 ₽</span>
+                            <button class="btn btn-primary btn-sm add-to-cart-btn" data-id="cinelog" data-name="CineLog 25 Whoop" data-price="28900" id="btn-buy-cinelog">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Configurator Section -->
+    <section class="configurator-section" id="configurator">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">ИНТЕРАКТИВНЫЙ БИЛДЕР</span>
+                <h2 class="section-title">СОБЕРИТЕ СВОЙ FPV ДРОН</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="configurator-container">
+                <!-- Customizer Options -->
+                <div class="config-options">
+                    
+                    <!-- Frame Select -->
+                    <div class="config-group" id="group-frame">
+                        <span class="config-group-title">1. Выберите раму и форм-фактор</span>
+                        <div class="config-grid">
+                            <label class="config-card checked" data-type="frame" data-value="freestyle" data-price="8000" data-weight="145" data-speed="150">
+                                <input type="radio" name="frame" value="freestyle" checked>
+                                <span class="config-card-title">Apex-X 5" Freestyle</span>
+                                <span class="config-card-desc">Фристайл, трюки, прочность (+8 000 ₽)</span>
+                            </label>
+                            <label class="config-card" data-type="frame" data-value="racing" data-price="10000" data-weight="120" data-speed="180">
+                                <input type="radio" name="frame" value="racing">
+                                <span class="config-card-title">Phantom 5" Racing</span>
+                                <span class="config-card-desc">Аэродинамика, чистая скорость (+10 000 ₽)</span>
+                            </label>
+                            <label class="config-card" data-type="frame" data-value="whoop" data-price="7000" data-weight="90" data-speed="90">
+                                <input type="radio" name="frame" value="whoop">
+                                <span class="config-card-title">CineLog 2.5" Whoop</span>
+                                <span class="config-card-desc">Защита пропеллеров, съемки (+7 000 ₽)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Battery / Power Select -->
+                    <div class="config-group" id="group-battery">
+                        <span class="config-group-title">2. Тип питания (Моторы + ESC)</span>
+                        <div class="config-grid">
+                            <label class="config-card" data-type="battery" data-value="4s" data-price="8000" data-weight="120" data-speed="0">
+                                <input type="radio" name="battery" value="4s">
+                                <span class="config-card-title">4S Power System</span>
+                                <span class="config-card-desc">Плавное управление, легче вес (+8 000 ₽)</span>
+                            </label>
+                            <label class="config-card checked" data-type="battery" data-value="6s" data-price="11000" data-weight="160" data-speed="30">
+                                <input type="radio" name="battery" value="6s" checked>
+                                <span class="config-card-title">6S Pro System</span>
+                                <span class="config-card-desc">Мощность без просадок, выше макс. скорость (+11 000 ₽)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Video Link Select -->
+                    <div class="config-group" id="group-video">
+                        <span class="config-group-title">3. Видеосистема (FPV Камера + Передатчик)</span>
+                        <div class="config-grid">
+                            <label class="config-card" data-type="video" data-value="analog" data-price="5000" data-weight="15" data-speed="0">
+                                <input type="radio" name="video" value="analog">
+                                <span class="config-card-title">Analog Link (Foxeer)</span>
+                                <span class="config-card-desc">Минимальная задержка, помехи (+5 000 ₽)</span>
+                            </label>
+                            <label class="config-card checked" data-type="video" data-value="vista" data-price="14000" data-weight="28" data-speed="0">
+                                <input type="radio" name="video" value="vista" checked>
+                                <span class="config-card-title">Caddx Vista / Link HD</span>
+                                <span class="config-card-desc">Цифровое 720p HD-видео в очках (+14 000 ₽)</span>
+                            </label>
+                            <label class="config-card" data-type="video" data-value="o3" data-price="24000" data-weight="39" data-speed="5">
+                                <input type="radio" name="video" value="o3">
+                                <span class="config-card-title">DJI O3 Air Unit 4K</span>
+                                <span class="config-card-desc">Ультимативное 4K видео, запись на борту (+24 000 ₽)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Receiver Select -->
+                    <div class="config-group" id="group-rx">
+                        <span class="config-group-title">4. Приемник радиоуправления</span>
+                        <div class="config-grid">
+                            <label class="config-card checked" data-type="rx" data-value="elrs" data-price="2000" data-weight="2" data-speed="0">
+                                <input type="radio" name="rx" value="elrs" checked>
+                                <span class="config-card-title">ExpressLRS (ELRS) 2.4G</span>
+                                <span class="config-card-desc">Самый популярный надежный линк (+2 000 ₽)</span>
+                            </label>
+                            <label class="config-card" data-type="rx" data-value="crossfire" data-price="4500" data-weight="3" data-speed="0">
+                                <input type="radio" name="rx" value="crossfire">
+                                <span class="config-card-title">TBS Crossfire Nano RX</span>
+                                <span class="config-card-desc">Дальнобойная связь, защита от помех (+4 500 ₽)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Configurator Sticky Stats -->
+                <div class="config-summary-panel" id="config-summary">
+                    <div class="summary-card">
+                        <h3 class="summary-title">ВАШ КОНФИГУР</h3>
+                        
+                        <div class="summary-visual">
+                            <div class="summary-visual-glow"></div>
+                            <!-- Static overlay that hints at custom building -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="svg-drone-draw"><path d="M12 2v20M2 12h20M12 12m-6 0a6 6 0 1 0 12 0 6 6 0 1 0 -12 0M6.5 6.5l11 11M6.5 17.5l11-11"></path></svg>
+                        </div>
+
+                        <div class="summary-specs">
+                            <div class="summary-spec-row">
+                                <span>Вес сборки:</span>
+                                <strong id="spec-weight-val">335 г</strong>
+                            </div>
+                            <div class="summary-spec-row">
+                                <span>Приблиз. скорость:</span>
+                                <strong id="spec-speed-val">180 км/ч</strong>
+                            </div>
+                            <div class="summary-spec-row">
+                                <span>Видеосистема:</span>
+                                <strong id="spec-video-val">Digital HD</strong>
+                            </div>
+                        </div>
+
+                        <div class="summary-price-container">
+                            <span class="price-label">Итоговая стоимость:</span>
+                            <span class="summary-price" id="config-total-price">35 000 ₽</span>
+                        </div>
+
+                        <button class="btn btn-primary btn-block" id="config-add-cart">Добавить в корзину</button>
+                        <p class="summary-hint">*Каждая сборка проходит индивидуальный тест полета, настройку рейтов и пидов перед отправкой клиенту.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies Grid -->
+    <section class="tech-section" id="specs">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">БЕЗ КОМПРОМИССОВ</span>
+                <h2 class="section-title">ПОЧЕМУ НАШИ ДРОНЫ ЛУЧШИЕ</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-card" id="tech-tuning">
+                    <div class="tech-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    </div>
+                    <h3 class="tech-card-title">Идеальный тюнинг</h3>
+                    <p class="tech-card-desc">Каждый дрон прошивается последней версией Betaflight и настраивается вручную профессиональными пилотами. Готов к полету прямо из коробки.</p>
+                </div>
+
+                <div class="tech-card" id="tech-assembly">
+                    <div class="tech-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                    </div>
+                    <h3 class="tech-card-title">Прецизионная пайка</h3>
+                    <p class="tech-card-desc">Мы используем только качественный припой и термоусадки. Каждая пайка проверяется под микроскопом для защиты от вибраций и влаги.</p>
+                </div>
+
+                <div class="tech-card" id="tech-components">
+                    <div class="tech-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tech-icon"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                    </div>
+                    <h3 class="tech-card-title">Топовое железо</h3>
+                    <p class="tech-card-desc">Мы не экономим на безопасности: только оригинальные контроллеры полета, надежные ESC с запасом по току и сертифицированные модули связи.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-Footer / About Section -->
+    <section class="about-section" id="about">
+        <div class="container about-container">
+            <div class="about-info">
+                <span class="section-subtitle">ОБ ИНЖЕНЕРАХ</span>
+                <h2 class="section-title">DRONSELLER — ЭТО ЛЕТАТЬ В ОЧКАХ</h2>
+                <p>Мы — команда профессиональных пилотов и инженеров. Мы сами летаем каждый день, участвуем в соревнованиях и снимаем видео для брендов. Мы знаем, какая рама выдержит удар о бетон, и какие моторы дадут максимальную отдачу на выходе из петли.</p>
+                <p>Каждый дрон, выходящий из нашей мастерской, — это индивидуальный продукт, собранный с душой и знанием дела.</p>
+            </div>
+            <div class="about-form-card" id="contact-form-wrapper">
+                <h3>ОСТАЛИСЬ ВОПРОСЫ?</h3>
+                <p>Оставьте свои контакты, и наш главный пилот свяжется с вами, чтобы подобрать дрон, аппаратуру или шлем.</p>
+                <form id="lead-form">
+                    <div class="form-group">
+                        <input type="text" id="lead-name" class="form-control" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="lead-contact" class="form-control" placeholder="Telegram / Телефон" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="lead-submit">Консультация</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo"><span class="logo-accent">DRON</span>SELLER</a>
+                <p>Профессиональные FPV решения от пилотов для пилотов.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Навигация</h4>
+                <a href="#drones">Каталог</a>
+                <a href="#configurator">Конфигуратор</a>
+                <a href="#specs">Технологии</a>
+                <a href="#about">Связь</a>
+            </div>
+            <div class="footer-contacts">
+                <h4>Контакты</h4>
+                <p>Мастерская: Москва, ул. Космонавтов, 12</p>
+                <p>Telegram: @dronseller_support</p>
+                <p>Email: support@dronseller.ru</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p>&copy; 2026 DRONSELLER. Все права защищены.</p>
+                <p>Сделано с любовью пилотами FPV.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-drawer-overlay" id="cart-overlay"></div>
+        <div class="cart-drawer-content">
+            <div class="cart-drawer-header">
+                <h3>Ваша корзина</h3>
+                <button class="cart-close" id="cart-close-btn" aria-label="Закрыть корзину">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-close"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <div class="cart-drawer-items" id="cart-items-container">
+                <!-- Cart items will be loaded dynamically by JS -->
+                <div class="cart-empty-state" id="cart-empty">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-empty-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <p>В корзине пока пусто</p>
+                    <a href="#drones" class="btn btn-secondary btn-sm" id="cart-empty-cta">Перейти к покупкам</a>
+                </div>
+            </div>
+
+            <div class="cart-drawer-footer" id="cart-footer">
+                <div class="cart-total-row">
+                    <span>Итого:</span>
+                    <strong id="cart-total-price-val">0 ₽</strong>
+                </div>
+                
+                <div class="cart-checkout-form">
+                    <h4>Оформить заказ</h4>
+                    <form id="cart-checkout-form-elem">
+                        <div class="form-group">
+                            <input type="text" id="checkout-name" class="form-control" placeholder="Имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="checkout-phone" class="form-control" placeholder="Telegram / Телефон" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="checkout-submit-btn">Подтвердить заказ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-content">
+            <div class="success-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="success-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 class="modal-title">Заказ принят!</h3>
+            <p class="modal-text">Наш инженер свяжется с вами в Telegram или по телефону в течение 15 минут для подтверждения конфигурации и деталей доставки.</p>
+            <button class="btn btn-primary" id="success-modal-close">Отлично</button>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
