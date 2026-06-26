@@ -658,4 +658,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInput) {
         searchInput.addEventListener('input', filterCatalog);
     }
+
+    // --- Secret Admin Access Logic ---
+    function checkAdminAccess() {
+        const settingsBtn = document.getElementById('settings-btn');
+        if (settingsBtn) {
+            if (window.location.hash === '#admin' || window.location.hash === '#settings') {
+                settingsBtn.style.setProperty('display', 'flex', 'important');
+            } else {
+                settingsBtn.style.setProperty('display', 'none', 'important');
+            }
+        }
+    }
+    checkAdminAccess();
+    window.addEventListener('hashchange', checkAdminAccess);
 });
