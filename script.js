@@ -624,6 +624,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = card.querySelector('.drone-title').textContent.toLowerCase();
             const desc = card.querySelector('.drone-desc').textContent.toLowerCase();
             const details = (card.dataset.details || "").toLowerCase();
+            
+            // Gather all text from drone-specs-list
+            const specsContainer = card.querySelector('.drone-specs-list');
+            const specsText = specsContainer ? specsContainer.textContent.toLowerCase() : "";
+            
             const badge = card.querySelector('.drone-badge');
             const badgeText = badge ? badge.textContent : "";
             const category = getCategoryFromBadge(badgeText);
@@ -635,7 +640,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchesSearch = !searchQuery || 
                                   title.includes(searchQuery) || 
                                   desc.includes(searchQuery) || 
-                                  details.includes(searchQuery);
+                                  details.includes(searchQuery) ||
+                                  specsText.includes(searchQuery);
 
             if (matchesFilter && matchesSearch) {
                 card.style.display = 'flex';
