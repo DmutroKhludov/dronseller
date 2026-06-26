@@ -641,10 +641,17 @@ a {
 .about-section {
     padding: 100px 0;
     border-top: 1px solid var(--border-color);
+}
+
+.about-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
     align-items: center;
+}
+
+.about-info {
+    text-align: center;
 }
 
 .about-info h2 {
@@ -1093,7 +1100,7 @@ a {
     .tech-grid {
         grid-template-columns: 1fr;
     }
-    .about-section {
+    .about-container {
         grid-template-columns: 1fr;
         gap: 40px;
     }
