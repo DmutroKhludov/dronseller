@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const profileModal = document.getElementById('profile-modal');
     const profileClose = document.getElementById('profile-modal-close');
-    const profileUsernameVal = document.getElementById('profile-username-val');
-    const profileContactVal = document.getElementById('profile-contact-val');
+    const profileEmailVal = document.getElementById('profile-email-val');
+    const profilePhoneVal = document.getElementById('profile-phone-val');
     const profileOrdersList = document.getElementById('profile-orders-list');
     const profileLogoutBtn = document.getElementById('profile-logout-btn');
     
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loggedUserJson = localStorage.getItem('drons_logged_in_user');
         if (loggedUserJson) {
             const user = JSON.parse(loggedUserJson);
-            const userOrders = JSON.parse(localStorage.getItem(`drons_orders_${user.username}`) || '[]');
+            const userOrders = JSON.parse(localStorage.getItem(`drons_orders_${user.email}`) || '[]');
             const newOrder = {
                 date: new Date().toLocaleDateString('ru-RU'),
                 time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 totalPrice: `${totalPrice.toLocaleString('ru-RU')} руб.`
             };
             userOrders.push(newOrder);
-            localStorage.setItem(`drons_orders_${user.username}`, JSON.stringify(userOrders));
+            localStorage.setItem(`drons_orders_${user.email}`, JSON.stringify(userOrders));
         }
         
         // Success workflow
@@ -336,14 +336,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-
     // --- User Authentication & Client Dashboard Logic ---
     function checkAuthState() {
         const loggedUserJson = localStorage.getItem('drons_logged_in_user');
         if (loggedUserJson) {
             const user = JSON.parse(loggedUserJson);
-            authBtn.textContent = `👤 ${user.username}`;
+            authBtn.textContent = `👤 ${user.email}`;
             authBtn.classList.remove('btn-outline');
             authBtn.classList.add('btn-primary');
         } else {
@@ -358,11 +356,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loggedUserJson) {
             // Open profile
             const user = JSON.parse(loggedUserJson);
-            profileUsernameVal.textContent = user.username;
-            profileContactVal.textContent = user.contact;
+            profileEmailVal.textContent = user.email;
+            profilePhoneVal.textContent = user.phone;
             
             // Generate order history
-            const orders = JSON.parse(localStorage.getItem(`drons_orders_${user.username}`) || '[]');
+            const orders = JSON.parse(localStorage.getItem(`drons_orders_${user.email}`) || '[]');
             profileOrdersList.innerHTML = '';
             
             if (orders.length === 0) {
@@ -434,19 +432,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handling Registration
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const username = document.getElementById('register-username').value.trim();
-        const contact = document.getElementById('register-contact').value.trim();
+        const email = document.getElementById('register-email').value.trim();
+        const phone = document.getElementById('register-phone').value.trim();
         const password = document.getElementById('register-password').value.trim();
         
         let users = JSON.parse(localStorage.getItem('drons_users') || '[]');
-        const userExists = users.some(u => u.username.toLowerCase() === username.toLowerCase());
+        const emailExists = users.some(u => u.email.toLowerCase() === email.toLowerCase());
+        const phoneExists = users.some(u => u.phone === phone);
         
-        if (userExists) {
-            alert('Позывной или имя уже зарегистрировано!');
+        if (emailExists) {
+            alert('Пользователь с такой почтой уже зарегистрирован!');
+            return;
+        }
+        if (phoneExists) {
+            alert('Пользователь с таким номером телефона уже зарегистрирован!');
             return;
         }
         
-        const newUser = { username, contact, password };
+        const newUser = { email, phone, password };
         users.push(newUser);
         localStorage.setItem('drons_users', JSON.stringify(users));
         
@@ -461,11 +464,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handling Login
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const username = document.getElementById('login-username').value.trim();
+        const identifier = document.getElementById('login-identifier').value.trim().toLowerCase();
         const password = document.getElementById('login-password').value.trim();
         
         const users = JSON.parse(localStorage.getItem('drons_users') || '[]');
-        const user = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+        const user = users.find(u => 
+            (u.email.toLowerCase() === identifier || u.phone === identifier) && 
+            u.password === password
+        );
         
         if (user) {
             localStorage.setItem('drons_logged_in_user', JSON.stringify(user));

@@ -919,7 +919,7 @@
             <form id="auth-login-form" class="auth-form-content active">
                 <h3 class="modal-title" style="margin-bottom: 20px; font-family: 'Outfit', sans-serif;">Вход в кабинет</h3>
                 <div class="form-group" style="margin-bottom: 15px;">
-                    <input type="text" id="login-username" class="form-control" placeholder="Позывной или имя" required>
+                    <input type="text" id="login-identifier" class="form-control" placeholder="Email или номер телефона (+7...)" required>
                 </div>
                 <div class="form-group" style="margin-bottom: 20px;">
                     <input type="password" id="login-password" class="form-control" placeholder="Пароль" required>
@@ -931,10 +931,10 @@
             <form id="auth-register-form" class="auth-form-content">
                 <h3 class="modal-title" style="margin-bottom: 20px; font-family: 'Outfit', sans-serif;">Регистрация</h3>
                 <div class="form-group" style="margin-bottom: 15px;">
-                    <input type="text" id="register-username" class="form-control" placeholder="Позывной или имя" required>
+                    <input type="email" id="register-email" class="form-control" placeholder="Электронная почта" required>
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">
-                    <input type="text" id="register-contact" class="form-control" placeholder="Telegram / Signal / Телефон" required>
+                    <input type="tel" id="register-phone" class="form-control" placeholder="Номер телефона (+7...)" pattern="^\+7[0-9]{10}$" title="Формат телефона должен быть +7XXXXXXXXXX (всего 11 цифр)" required>
                 </div>
                 <div class="form-group" style="margin-bottom: 20px;">
                     <input type="password" id="register-password" class="form-control" placeholder="Пароль" required>
@@ -951,8 +951,8 @@
             <h3 class="modal-title" style="margin-bottom: 10px; font-family: 'Outfit', sans-serif;">Личный кабинет</h3>
             
             <div class="profile-info-section" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 15px; margin-bottom: 20px; font-size: 0.9rem;">
-                <p style="margin: 5px 0;"><strong>Позывной / Имя:</strong> <span id="profile-username-val"></span></p>
-                <p style="margin: 5px 0;"><strong>Способ связи:</strong> <span id="profile-contact-val"></span></p>
+                <p style="margin: 5px 0;"><strong>Email:</strong> <span id="profile-email-val"></span></p>
+                <p style="margin: 5px 0;"><strong>Телефон:</strong> <span id="profile-phone-val"></span></p>
             </div>
             
             <h4 style="font-family: 'Outfit', sans-serif; font-size: 1rem; color: var(--color-cyan); margin-bottom: 12px;">История ваших заказов</h4>
