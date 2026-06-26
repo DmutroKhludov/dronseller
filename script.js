@@ -18,8 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartCountBadge = document.getElementById('cart-count');
     const checkoutForm = document.getElementById('cart-checkout-form-elem');
     
-
-    
     // Forms & Modals
     const leadForm = document.getElementById('lead-form');
     const successModal = document.getElementById('success-modal');
@@ -37,8 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
             header.style.height = '80px';
         }
     });
-
-
 
     // --- Cart Functions ---
     function openCart() {
@@ -64,13 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
             cartEmpty.style.display = 'none';
             cartFooter.style.display = 'block';
             
-            let totalUah = 0;
-            let totalUsd = 0;
+            let total = 0;
             let count = 0;
             
             cart.forEach((item, index) => {
-                totalUah += item.priceUah;
-                totalUsd += item.priceUsd;
+                total += item.price;
                 count++;
                 
                 const itemElem = document.createElement('div');
@@ -78,14 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 itemElem.innerHTML = `
                     <div class="cart-item-details">
                         <span class="cart-item-name">${item.name}</span>
-                        <span class="cart-item-price">${item.priceUah.toLocaleString('uk-UA')} грн / $${item.priceUsd}</span>
+                        <span class="cart-item-price">${item.price.toLocaleString('ru-RU')} руб.</span>
                     </div>
-                    <button class="cart-item-remove" data-index="${index}">Видалити</button>
+                    <button class="cart-item-remove" data-index="${index}">Удалить</button>
                 `;
                 cartItemsContainer.appendChild(itemElem);
             });
             
-            cartTotalPriceVal.textContent = `${totalUah.toLocaleString('uk-UA')} грн / $${totalUsd}`;
+            cartTotalPriceVal.textContent = `${total.toLocaleString('ru-RU')} руб.`;
             cartCountBadge.textContent = count;
 
             // Wire remove buttons
@@ -99,11 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function addToCart(name, priceUah, priceUsd) {
+    function addToCart(name, price) {
         cart.push({ 
             name, 
-            priceUah: parseInt(priceUah), 
-            priceUsd: parseInt(priceUsd) 
+            price: parseInt(price)
         });
         updateCartUI();
         openCart();
@@ -125,13 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
     addCatalogBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             const name = e.target.dataset.name;
-            const priceUah = e.target.dataset.priceUah;
-            const priceUsd = e.target.dataset.priceUsd;
-            addToCart(name, priceUah, priceUsd);
+            const price = e.target.dataset.price;
+            addToCart(name, price);
         });
     });
-
-
 
     // Add empty cart CTA trigger to close drawer and scroll to catalog
     document.getElementById('cart-empty-cta').addEventListener('click', (e) => {
@@ -151,8 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("ORDER PLACED:", {
             customer: { name, phone },
             items: cart,
-            totalPriceUah: cart.reduce((acc, item) => acc + item.priceUah, 0),
-            totalPriceUsd: cart.reduce((acc, item) => acc + item.priceUsd, 0)
+            totalPrice: cart.reduce((acc, item) => acc + item.price, 0)
         });
         
         // Success workflow
@@ -224,8 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const buyBtn = card.querySelector('.add-to-cart-btn');
             activeDroneData = {
                 name: buyBtn.dataset.name,
-                priceUah: buyBtn.dataset.priceUah,
-                priceUsd: buyBtn.dataset.priceUsd
+                price: buyBtn.dataset.price
             };
 
             // Set content
@@ -280,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalBuyBtn) {
         modalBuyBtn.addEventListener('click', () => {
             if (activeDroneData) {
-                addToCart(activeDroneData.name, activeDroneData.priceUah, activeDroneData.priceUsd);
+                addToCart(activeDroneData.name, activeDroneData.price);
                 closeDetailModal();
             }
         });
@@ -293,19 +281,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getCategoryFromBadge(badgeText) {
         const text = badgeText.trim().toUpperCase();
-        if (["РОЗВІДКА", "ТЕПЛОВІЗОР", "КОМПАКТНИЙ", "МІКРО-ЗОНД", "ІНДОР-ЗОНД", "КВАДРОКОПТЕР"].includes(text)) {
+        if (["РАЗВЕДКА", "ТЕПЛОВИЗОР", "КОМПАКТНЫЙ", "МИКРО-ЗОНД", "ИНДОР-ЗОНД", "КВАДРОКОПТЕР"].includes(text)) {
             return 'recon';
         }
-        if (["ШТУРМОВИЙ", "БОМБАРДУВАЛЬНИК", "ПЕРЕХОПЛЮВАЧ"].includes(text)) {
+        if (["ШТУРМОВОЙ", "БОМБАРДИРОВЩИК", "ПЕРЕХВАТЧИК"].includes(text)) {
             return 'strike';
         }
-        if (["ВАНТАЖНИЙ", "ПРОМИСЛОВИЙ"].includes(text)) {
+        if (["ГРУЗОВОЙ", "ПРОМЫШЛЕННЫЙ"].includes(text)) {
             return 'cargo';
         }
-        if (text === "ДАЛЬНОЛІТ") {
+        if (text === "ДАЛЬНОЛЕТ") {
             return 'longrange';
         }
-        if (text === "ПРОРИВ РЕБ") {
+        if (text === "ПРОРЫВ РЭБ") {
             return 'antireb';
         }
         return 'all';
